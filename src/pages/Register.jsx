@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-
+import { useAuth } from "../context/authContext";
 
 export default function Register() {
     const navigate = useNavigate();
+    const { setUser: setGlobalUser } = useAuth();
 
     const [user, setUser] = useState({
         email: '',
@@ -12,11 +13,22 @@ export default function Register() {
     })
 
     const onChangeForm = (key, value) => {
-        setUser({...user, [key]: value})
+        setUser({ ...user, [key]: value })
     }
 
     const onSigninClick = () => {
         navigate("/login");
+    }
+
+    const onSignUpClick = () => {
+        if (user.email.trim().length > 0 && user.password.trim().length > 0 && user.confirmPassword.trim().length > 0) {
+            if (user.password !== user.confirmPassword) {
+                alert("Passwords do not match");
+                return;
+            }
+            setGlobalUser({ ...user })
+            navigate("/dashboard");
+        }
     }
 
     return (
@@ -88,16 +100,16 @@ export default function Register() {
                                     onChange={(e) => {
                                         onChangeForm(e.target.name, e.target.value)
                                     }}
-                                    type="confirm-password"
-                                    name="confirm-password"
-                                    id="confirm-password"
+                                    type="password"
+                                    name="confirmPassword"
+                                    id="confirmPassword"
                                     placeholder="••••••••"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     required=""
                                 />
                             </div>
                             <button
-                                type="submit"
+                                onClick={onSignUpClick}
                                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                             >
                                 Create an account

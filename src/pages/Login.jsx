@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import {useAuth} from "../context/authContext";
+import { useAuth } from "../context/authContext";
 
 
 export default function Login() {
     const navigate = useNavigate();
-    const {setUser : setGlobalUser} = useAuth();
+    const { setUser: setGlobalUser } = useAuth();
 
     const [user, setUser] = useState({
         email: "",
@@ -13,7 +13,7 @@ export default function Login() {
     })
 
     const onChangeForm = (key, value) => {
-        setUser({...user, [key]: value})
+        setUser({ ...user, [key]: value })
     }
 
     const onSignupClick = () => {
@@ -21,8 +21,8 @@ export default function Login() {
     }
 
     const onLoginClick = () => {
-        if(user.email.trim().length > 0 && user.password.trim().length > 0){
-            setGlobalUser({...user})
+        if (user.email.trim().length > 0 && user.password.trim().length > 0) {
+            setGlobalUser({ ...user })
             navigate("/dashboard");
         }
     }
