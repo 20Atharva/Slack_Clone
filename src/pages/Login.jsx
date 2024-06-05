@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 
+import {channels} from "../constants"
 
 export default function Login() {
     const navigate = useNavigate();
@@ -23,7 +24,8 @@ export default function Login() {
     const onLoginClick = () => {
         if (user.email.trim().length > 0 && user.password.trim().length > 0) {
             setGlobalUser({ ...user })
-            navigate("/dashboard");
+            localStorage.setItem("user", JSON.stringify(user))
+            navigate(`/channel/${channels[0].name}`);
         }
     }
 

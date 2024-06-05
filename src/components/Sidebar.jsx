@@ -1,5 +1,9 @@
 import SlackIcon from '../icons/SlackIcon';
-import HashIcon from '../icons/HashIcon';
+import PlusIcon from '../icons/PlusIcon';
+import Channel from "./Channel";
+import DM from "./DM";
+import {channels,dms} from "../constants";
+
 
 export default function Sidebar() {
     return (
@@ -8,17 +12,33 @@ export default function Sidebar() {
                 <SlackIcon className="h-6 w-6" />
                 <h2 className="text-lg font-semibold">Slack</h2>
             </div>
-            <div className="flex-1 overflow-auto">
+            <div className="flex items-center justify-between p-4">
+              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Channels</h3>
+                <PlusIcon className="h-4 w-4" />
+            </div>
+            <div className="overflow-auto max-h-[320px]">
                 <nav className="space-y-1 p-4">
-                    <div
-                        // variant="ghost"
-                        className="flex w-full items-center justify-start gap-3 rounded-md px-3 py-2 text-left text-gray-400 hover:bg-gray-900 hover:text-white"
-                    >
-                        <HashIcon className="h-5 w-5" />
-                        <span>general</span>
-                    </div>
+                    {
+                        channels.map((channel) => (
+                            <Channel {...channel}/>
+                        ))
+                    }
                 </nav>
             </div>
+            <div className="flex items-center justify-between p-4">
+              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Direct Messages</h3>
+            </div>
+
+            <div className="overflow-auto max-h-[230px]">
+                <nav className="space-y-1 p-4">
+                    {
+                        dms.map((dm) => (
+                            <DM {...dm}/>
+                        ))
+                    }
+                </nav>
+            </div>
+
             <div className="border-t border-gray-800 p-4">
                 <div
                     // variant="ghost"

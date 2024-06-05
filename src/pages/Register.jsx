@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+
 import { useAuth } from "../context/authContext";
+
+import {channels} from "../constants"
+
 
 export default function Register() {
     const navigate = useNavigate();
@@ -26,8 +30,10 @@ export default function Register() {
                 alert("Passwords do not match");
                 return;
             }
+            
+            localStorage.setItem("user", JSON.stringify(user))
             setGlobalUser({ ...user })
-            navigate("/dashboard");
+            navigate(`/channel/${channels[0].name}`);
         }
     }
 

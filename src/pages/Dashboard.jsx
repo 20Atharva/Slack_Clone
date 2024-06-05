@@ -1,4 +1,6 @@
 import React from 'react';
+import {Outlet} from "react-router-dom"
+
 import Sidebar from "../components/Sidebar"
 import Header from "../components/Header"
 import MessageHistory from "../components/MessageHistory"
@@ -10,7 +12,7 @@ export default function Dashboard(props) {
             <Sidebar/>
       <div className="flex flex-col">
         <Header/>
-        <MessageHistory/>
+        <Outlet/>
         <TextArea/>
       </div>
     </div>
